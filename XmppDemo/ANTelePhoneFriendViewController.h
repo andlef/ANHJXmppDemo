@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface ANTelePhoneFriendViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate> {
-    NSMutableArray* personArray;
+    NSMutableArray * personArray;       //电话条目
+    NSMutableArray * allPhoneNumber;    //所有电话号码(不包括friendAndTel)
+    NSMutableArray * friendAndTel;      //既是好友号码，又是本地通讯录号码
     
-    NSMutableArray * friendAndTel;
+    NSMutableArray * allNameArray;      //所有联系人(不包括friendNameArray)
+    NSMutableArray * friendNameArray;   //既是好友，又是本地通讯录 的联系人
     
     NSInteger numBoth;
+    NSInteger numOthers;
 }
 
 @property (nonatomic, strong) NSArray * myFriend;

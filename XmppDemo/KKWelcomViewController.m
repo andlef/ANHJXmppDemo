@@ -7,6 +7,7 @@
 //
 
 #import "KKWelcomViewController.h"
+#import "KKAppDelegate.h"
 
 @interface KKWelcomViewController ()
 
@@ -27,6 +28,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated { // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
+    KKAppDelegate *delegate = (KKAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate connect];
 }
 
 - (void)didReceiveMemoryWarning
