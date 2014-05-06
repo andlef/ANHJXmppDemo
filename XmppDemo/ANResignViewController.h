@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
 @interface ANResignViewController : UIViewController {
-    
+    MBProgressHUD * HUD;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumber;
@@ -18,6 +19,8 @@
 - (IBAction)cancelResign:(id)sender;
 
 - (IBAction)submitResign:(id)sender;
+
+- (void) showHUD:(NSString*)msg;
 
 
 @end

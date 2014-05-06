@@ -8,9 +8,9 @@
 
 #import "KKAppDelegate.h"
 #import "Statics.h"
+#import <AudioToolbox/AudioToolbox.h>
 #import "KKChatDelegate.h"
 #import "KKMessageDelegate.h"
-#import <AudioToolbox/AudioToolbox.h>
 
 @implementation KKAppDelegate
 
@@ -45,13 +45,12 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    NSLog(@"---applicationWillEnterForeground---");
-    [self connect];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-
+    NSLog(@"---applicationDidBecomeActive--start connect");
+    [self connect];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -94,9 +93,6 @@
     //    [xmppRoster addDelegate:self delegateQueue:dispatch_get_main_queue()];
     [xmppRoster addDelegate:self delegateQueue:dispatch_get_current_queue()];
 
-
-
-    
 }
 
 -(void)goOnline{
@@ -217,21 +213,49 @@
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender{
     NSLog(@"\n--xmppStreamDidAuthenticate--\n%@\r%@\n",sender.hostName,[sender description]);
     [Statics setLoginFlag:YES];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginPageClose" object:nil];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Login Success" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReflashMainView" object:nil];
+
     [self goOnline];
+    
+    //Voice
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"Contact_On" ofType:@"m4a"];
+    NSURL *fileUrl  = [NSURL URLWithString:filePath];
+    [Statics playVoice:fileUrl];
+
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error {
     NSLog(@"--didNotAuthenticate-- : %@",[error description]);
     [xmppStream disconnect];
+    
+    if ( STATE_REQ_LOGIN == [Statics getCurrentRequestType] ) {
+        NSString *temp = [error description];
+        NSString *jap = @"not-authorized";
+        NSRange foundObj=[temp rangeOfString:jap options:NSCaseInsensitiveSearch];
+        if(foundObj.length>0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginResultError" object:nil];
+        }
+    }
+
 }
 //
 //- (void)addUser:(XMPPJID *)jid withNickname:(NSString *)optionalName {
-//    
+//
 //}
 
 - (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error {
     NSLog(@"---didNotRegister---:/n%@",[error description]);
+    NSString *temp = [error description];
+    NSString *jap = @"409";
+    NSRange foundObj=[temp rangeOfString:jap options:NSCaseInsensitiveSearch];
+    if(foundObj.length>0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Resign_409" object:nil];
+    }
 }
 
 - (void)xmppStreamDidRegister:(XMPPStream *)sender {
@@ -272,6 +296,10 @@
     NSLog(@"--didReceiveMessage---message is %@",message.toStr);
 	// A simple example of inbound message handling.
     
+//    //Voice
+//    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"Message_Received" ofType:@"m4a"];
+//    NSURL *fileUrl  = [NSURL URLWithString:filePath];
+//    [Statics playVoice:fileUrl];
     
 //	if ([message isChatMessageWithBody])
     if ( [message isChatMessage] )
@@ -307,12 +335,11 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Have a msg" object:message];
 		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
 		{
-            
             //消息委托(这个后面讲)
             [messageDelegate newMessageReceived:dict];
-		}
-		else
-		{
+            
+		} else {
+            
 			// We are not active, so use a local notification instead. we could use RemoteAPN too.
 			UILocalNotification *localNotification = [[UILocalNotification alloc] init];
 			localNotification.alertAction = @"Ok";
@@ -411,6 +438,10 @@
 }
 
 - (void) playVibration {
+    //Voice
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"New_Message" ofType:@"m4a"];
+    NSURL *fileUrl  = [NSURL URLWithString:filePath];
+    [Statics playVoice:fileUrl];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 

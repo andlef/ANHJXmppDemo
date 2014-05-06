@@ -7,6 +7,7 @@
 //
 
 #import "Statics.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation Statics
 
@@ -49,6 +50,13 @@
 +(RequestTypeState)getCurrentRequestType {
     NSLog(@"getCurrentRequestType = %d",currentRequestType);
     return currentRequestType;
+}
+
++(void)playVoice:(NSURL*)url {
+    //Voice
+    SystemSoundID soundId;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &soundId);
+    AudioServicesPlaySystemSound(soundId);
 }
 
 

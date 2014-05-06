@@ -7,16 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 #import "Statics.h"
 #import "KKChatDelegate.h"
 
-@interface KKViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate,KKChatDelegate>
+@interface KKViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate,KKChatDelegate> {
+    MBProgressHUD * HUD;
+}
 
 @property (strong, nonatomic) IBOutlet UITableView *tView;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *loginAndLogout;
+@property (assign, nonatomic) IBOutlet UIBarButtonItem *loginAndLogout;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *reginAndAddFriend;
+@property (assign, nonatomic) IBOutlet UIBarButtonItem *reginAndAddFriend;
 
 - (IBAction)actResignAndAddFriend:(id)sender;
 

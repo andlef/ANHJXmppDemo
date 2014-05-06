@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
-@interface KKLoginController : UITableViewController <UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface KKLoginController : UITableViewController <UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource> {
+    MBProgressHUD * HUD;
+}
+
 @property (strong, nonatomic) IBOutlet UITextField *userTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passTextField;
 @property (strong, nonatomic) IBOutlet UITextField *serverTextField;

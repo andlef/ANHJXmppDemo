@@ -200,7 +200,7 @@ static CGFloat const kMaxOffset = 15;
     //发送消息
     if ([sender isEqualToString:@"you"]) {
         UIButton * btnPlayOrShow = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGRect leftFrame = CGRectMake(padding, padding/2, size.width, size.height+5);
+        CGRect leftFrame = CGRectMake(padding, padding, size.width, size.height+5);
         if ( [[dict objectForKey:@"attachmentType"] isEqualToString:@"audio"] ) {
             [btnPlayOrShow setTitle:@"playAudio" forState:UIControlStateNormal];
             [btnPlayOrShow setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -218,11 +218,11 @@ static CGFloat const kMaxOffset = 15;
         } else {
             //背景图
             bgImage = [[UIImage imageNamed:@"BlueBubble2.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
-            [cell.messageContentView setFrame:CGRectMake(padding, padding/2, size.width, size.height+5)];
+            [cell.messageContentView setFrame:CGRectMake(padding, padding/2+15, size.width, size.height+15)];
         }
         
         [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2,
-                                              cell.messageContentView.frame.origin.y - padding/2 + 5,
+                                              cell.messageContentView.frame.origin.y - padding/2+5,
                                               size.width + padding, size.height + padding)];
         
     }else {
@@ -485,6 +485,7 @@ static CGFloat const kMaxOffset = 15;
         [message addChild:body];
         [message addChild:attachment];
         [self.xmppStream sendElement:message];
+        
     }
     
     if ( self.picImage ) {
@@ -505,9 +506,14 @@ static CGFloat const kMaxOffset = 15;
         
         [message addChild:body];
         [message addChild:attachment];
+        
+        
         [self.xmppStream sendElement:message];
         
+//        self.picImage = nil;
+        
     }
+    
 
 }
 
@@ -587,7 +593,11 @@ static CGFloat const kMaxOffset = 15;
         
     }
     
-    [self uploadFile];
+//    [self uploadFile];
+    [self performSelectorOnMainThread:@selector(uploadFile) withObject:nil waitUntilDone:YES];
+    self.picImage = nil;
+    [self removeRecFile];
+
 }
 
 - (void) removeRecFile {
@@ -630,7 +640,6 @@ static CGFloat const kMaxOffset = 15;
                                             cancelButtonTitle:@"关闭"
                                             otherButtonTitles:nil, nil];
         [al show];
-        
         return;
     }
     // Present the camera interface

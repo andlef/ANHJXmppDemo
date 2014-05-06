@@ -10,8 +10,6 @@
 #import <AddressBook/AddressBook.h>
 #import "Statics.h"
 
-#define ALPHA	@"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
-
 
 @interface ANTelePhoneFriendViewController ()
 
@@ -26,11 +24,6 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        friendAndTel = [[NSMutableArray alloc] init];
-        allPhoneNumber = [[NSMutableArray alloc] init];
-        personArray = [[NSMutableArray alloc] init];
-        allNameArray = [[NSMutableArray alloc] init];
-        friendNameArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -39,22 +32,17 @@
 {
     [super viewDidLoad];
     
+    friendAndTel = [NSMutableArray array];
     numBoth = 0;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
+ 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-    [self searchFriend];
-}
-
--(void) searchFriend {
     
-    NSString *firstName;
-    NSString *lastName;
-    NSString *fullName;
+    personArray = [[NSMutableArray alloc] init];
     ABAddressBookRef addressBook = ABAddressBookCreate();
+    NSString *firstName, *lastName, *fullName;
     
     __block BOOL accessGranted = NO;
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
@@ -68,49 +56,66 @@
         // The user has previously denied access
         // Send an alert telling user to change privacy setting in settings app
     }
+    
     NSLog(@"===%@",[self.myFriend description]);
     
     personArray = (__bridge NSMutableArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
+    //        if ([sender tag]==0) {
+    NSLog(@"personArray first: %@",[personArray firstObject]);
     for (id person in personArray)
     {
         ABMultiValueRef phones = (ABMultiValueRef) ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
         for(int i = 0 ;i < ABMultiValueGetCount(phones); i++)
         {
             NSString *phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phones, i);
-            NSString *strUrl = [phone stringByReplacingOccurrencesOfString:@"+86" withString:@""];
-            strUrl = [strUrl stringByReplacingOccurrencesOfString:@"-" withString:@""];
-            strUrl = [strUrl stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            if ( nil == strUrl ) {
-                strUrl = @"存TMD个空号码!";
-            }
+            NSMutableString *strUrl = (NSMutableString*)[phone stringByReplacingOccurrencesOfString:@"+86" withString:@""];
+            strUrl = (NSMutableString*)[strUrl stringByReplacingOccurrencesOfString:@"-" withString:@""];
+            strUrl = (NSMutableString*)[strUrl stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             
-            firstName = (__bridge NSString *)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty);
-            firstName = [firstName stringByAppendingFormat:@" "];
-            lastName = (__bridge NSString *)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);
-            fullName = [lastName stringByAppendingFormat:@"%@",firstName];
-            if ( nil == fullName ) {
-                fullName = @"TMD没写名,无名氏!";
-            }
+//            NSLog(@"===%@",strUrl);
+//            NSString *temp = @"english, french, japanese, chinese";
+//            NSString *jap = @"japanese";
+//            NSRange foundObj=[temp rangeOfString:jap options:NSCaseInsensitiveSearch];
+//            if(foundObj.length>0) {
+//                NSLog(@"Yes ! Jap found");
+//            } else {
+//                NSLog(@"Oops ! no jap"); 
+//            }
             if ( [self.myFriend containsObject:[NSString stringWithFormat:@"%@@%@",strUrl,SERVER_DOMAIN]] ) {
-                
-                [friendAndTel insertObject:strUrl atIndex:numBoth];
-                [friendNameArray insertObject:fullName atIndex:numBoth];
                 numBoth++;
                 NSLog(@"my friend : %@, numBoth: %d",strUrl,numBoth);
-         
-            } else  {
-                
-                NSArray * arr = (__bridge NSArray *)(ABMultiValueCopyArrayOfAllValues(phones));
-                [allPhoneNumber insertObject:arr atIndex:numOthers];
-                [allNameArray insertObject:fullName atIndex:numOthers];
-                numOthers++;
-//                NSLog(@"arr-:%@, numOthers: %d",[arr description],numOthers);
             }
         }
+//        ABMultiValueRef mails = (ABMultiValueRef) ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonEmailProperty);
+//        for(int i = 0 ;i < ABMultiValueGetCount(mails); i++)
+//        {
+//            NSString *mail = (__bridge NSString *)ABMultiValueCopyValueAtIndex(mails, i);
+//            NSLog(@"==%@",mail);
+//        }
     }
+    //        }else {
+    //            //删除信息
+    //            //返回所有联系人到一个数组中
+    //            CFArrayRef personArray = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    //            CFIndex personCount = ABAddressBookGetPersonCount(addressBook);
+    //            for (int i =0;i<personCount;i++){
+    //                ABRecordRef ref = CFArrayGetValueAtIndex(personArray, i);
+    //                CFStringRef firstName1 = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+    //                CFStringRef lastName1 = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+    //                NSString *contactFirstLast = [NSString stringWithFormat: @"%@%@", (NSString *)firstName1,(NSString *)lastName1];
+    //                if ([contactFirstLast isEqualToString:@"徐梦"]) {
+    //                    //删除联系人
+    //                    ABAddressBookRemoveRecord(addressBook, ref, nil);
+    //                }
+    //            }
+    //            //保存电话本
+    //            ABAddressBookSave(addressBook, nil);
+    //            //释放内存
+    //            //CFRelease(personRef);
+    //            //        CFRelease(addressbookRef);
+    //        }
     
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -120,53 +125,12 @@
 
 #pragma mark - Table view data source
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
-{
-		NSMutableArray *indices = [NSMutableArray arrayWithObject:UITableViewIndexSearch];
-		for (int i = 0; i < 27; i++)
-//			if ([[self.sectionArray objectAtIndex:i] count])
-				[indices addObject:[[ALPHA substringFromIndex:i] substringToIndex:1]];
-		//[indices addObject:@"\ue057"]; // <-- using emoji
-		return indices;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-	return [ALPHA rangeOfString:title].location;
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 2;
 }
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    tableView.restorationIdentifier = @"testTTT";
-    UILabel * lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 2, 300, 20)];
-    [lab setBackgroundColor:[UIColor clearColor]];
-    if ( 0 == section ) {
-        lab.text = @"通讯录好友：";
-    } else if ( 1== section ) {
-        lab.text = @"我的通讯录：";
-    }
-    
-    return  lab;
-    
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSMutableString * str = [[NSMutableString alloc] init];
-    if ( 0 == section ) {
-        str = (NSMutableString*)@"通讯录好友str:";
-    } else if (1 == section) {
-        str = (NSMutableString*)@"我的通讯录str:";
-    }
-    return str;
-}
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60.0;
@@ -179,11 +143,10 @@
     NSInteger numRow = 0;
     if ( 0 == section ) {
         numRow = numBoth;
-        NSLog(@"----section000 %d numberOfRowsInSection: %d",section,numRow);
     } else {
         numRow = [personArray count];
-        NSLog(@"----section111 %d numberOfRowsInSection: %d",section,numRow);
     }
+     NSLog(@"----section %d numberOfRowsInSection: %d",section,numRow);
     return numRow;
 }
 
@@ -197,77 +160,85 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         
     }
+    NSString *firstName;
+    NSString *lastName;
+    NSString *fullName;
     
-    NSMutableString * phoneNumbersStr = [[NSMutableString alloc] init];
     
-    if ( 0 == indexPath.section ) {
-        cell.detailTextLabel.text = [friendAndTel objectAtIndex:indexPath.row];
-        cell.textLabel.text = [friendNameArray objectAtIndex:indexPath.row];
-    } else if ( 1 == indexPath.section ) {
-        for ( int i = 0; i<[[allPhoneNumber objectAtIndex:indexPath.row] count]; i++ ) {
-            [phoneNumbersStr appendString:[[allPhoneNumber objectAtIndex:indexPath.row] objectAtIndex:i]];
-            [phoneNumbersStr appendString:@"  "];
+    ABMultiValueRef phones = (ABMultiValueRef) ABRecordCopyValue((__bridge ABRecordRef)([personArray objectAtIndex:indexPath.row]), kABPersonPhoneProperty);
+    NSMutableString *phone = [[NSMutableString alloc] init];
+    for(int i = 0 ;i < ABMultiValueGetCount(phones); i++)
+    {
+        phone = [NSMutableString stringWithFormat:@"%@  %@", phone, ABMultiValueCopyValueAtIndex(phones, i)];
+        NSLog(@"===%@",phone);
+        
+        if ( [myFriend containsObject:phone] ) {
+            
         }
-        cell.detailTextLabel.text = phoneNumbersStr;
-        cell.textLabel.text = [allNameArray objectAtIndex:indexPath.row];
+        
+        cell.detailTextLabel.text = phone;
     }
+    
+    
+    firstName = (__bridge NSString *)ABRecordCopyValue((__bridge ABRecordRef)([personArray objectAtIndex:indexPath.row]), kABPersonFirstNameProperty);
+    firstName = [firstName stringByAppendingFormat:@" "];
+    lastName = (__bridge NSString *)ABRecordCopyValue((__bridge ABRecordRef)([personArray objectAtIndex:indexPath.row]), kABPersonLastNameProperty);
+    fullName = [lastName stringByAppendingFormat:@"%@",firstName];
+    NSLog(@"===%@",fullName);
+    cell.textLabel.text = fullName;
     
     return cell;
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }   
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+/*
+#pragma mark - Navigation
+
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a story board-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- 
  */
 
 @end

@@ -44,6 +44,7 @@
                                              selector:@selector(changeNaviBarItemWhenLogined)
                                                  name:@"Login Success"
                                                object:nil];
+
     
     onlineUsers = [NSMutableArray array];
     allFriends = [NSMutableArray array];
@@ -58,6 +59,14 @@
         self.extendedLayoutIncludesOpaqueBars = YES;
         self.modalPresentationCapturesStatusBarAppearance = NO;
     }
+    
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.mode = MBProgressHUDModeText;
+    [self.view addSubview:HUD];
+    //如果设置此属性则当前的view置于后台
+    HUD.dimBackground = YES;
+    //设置对话框文字
+    HUD.labelText = @"请稍等";
 
 }
 
@@ -75,13 +84,13 @@
 }
 
 -(void) changeNaviBarItemWhenLogined {
-    self.loginAndLogout.title = [Statics isLogin] ? @"退出" : @"登陆";
+    self.loginAndLogout.title = [Statics isLogin] ? @"退出" : @"登录";
     self.reginAndAddFriend.title = [Statics isLogin] ? @"加好友" : @"注册";
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] stringForKey:USERID];
     NSRange range = [userId rangeOfString:@"@"];//匹配得到的下标
     userId = [userId substringToIndex:range.location];//截取范围类的字符串
-    self.title =[Statics isLogin] ? userId : @"未登陆";
+    self.title =[Statics isLogin] ? userId : @"未登录";
 
 }
 
@@ -92,9 +101,9 @@
     NSString *userId = [[NSUserDefaults standardUserDefaults] stringForKey:USERID];
     NSRange range = [userId rangeOfString:@"@"];//匹配得到的下标
     userId = [userId substringToIndex:range.location];//截取范围类的字符串
-    self.title =[Statics isLogin] ? userId : @"未登陆";
+    self.title =[Statics isLogin] ? userId : @"未登录";
 
-    self.loginAndLogout.title = [Statics isLogin] ? @"退出" : @"登陆";
+    self.loginAndLogout.title = [Statics isLogin] ? @"退出" : @"登录";
     self.reginAndAddFriend.title = [Statics isLogin] ? @"加好友" : @"注册";
     
 }
@@ -111,6 +120,23 @@
             NSString * userStr = [NSString stringWithFormat:@"%@@%@",textField.text,SERVER_DOMAIN];
             KKAppDelegate *del = [self appDelegate];
             [del XMPPAddFriendSubscribe:userStr];
+        } else {
+            HUD.labelText = @"请输入好友手机号码";
+            //显示对话框
+            [HUD showAnimated:YES whileExecutingBlock:^{
+                //对话框显示时需要执行的操作
+                sleep(3);
+            } completionBlock:^{
+                //操作执行完后取消对话框
+                //        [HUD removeFromSuperview];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请输入好友手机号码" message:@"" delegate:self
+                                                      cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+                alert.tag = 100;
+                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+                UITextField *tf = [alert textFieldAtIndex:0];
+                tf.keyboardType = UIKeyboardTypeNumberPad;
+                [alert show];
+            }];
         }
     } else if ( 101 == alertView.tag && 0 == buttonIndex ) {
         [[self appDelegate] disconnect];
@@ -174,6 +200,8 @@
                                               cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
         alert.tag = 100;
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        UITextField *tf = [alert textFieldAtIndex:0];
+        tf.keyboardType = UIKeyboardTypeNumberPad;
         [alert show];
         
      } else {

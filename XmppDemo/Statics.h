@@ -36,5 +36,6 @@ static  RequestTypeState currentRequestType;
 +(void)setLoginFlag:(BOOL)isLogin;
 +(void)setCurrentRequestType:(RequestTypeState)reqType;
 +(RequestTypeState)getCurrentRequestType;
++(void)playVoice:(NSURL*)url;
 
 @end

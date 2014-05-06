@@ -7,7 +7,6 @@
 //
 
 #import "KKWelcomViewController.h"
-#import "KKAppDelegate.h"
 
 @interface KKWelcomViewController ()
 
@@ -28,11 +27,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reflashMainView)
+                                                 name:@"ReflashMainView"
+                                               object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated { // Called when the view is dismissed, covered or otherwise hidden. Default does nothing
-    KKAppDelegate *delegate = (KKAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [delegate connect];
+- (void) reflashMainView {
+    [self performSegueWithIdentifier:@"mainView" sender:self];
 }
 
 - (void)didReceiveMemoryWarning
