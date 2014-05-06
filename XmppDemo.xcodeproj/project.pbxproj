@@ -88,9 +88,16 @@
 		18A90A851862D172005FD47B /* ASMediaFocusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A90A801862D172005FD47B /* ASMediaFocusController.m */; };
 		18A90A861862D172005FD47B /* ASMediaFocusController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A90A811862D172005FD47B /* ASMediaFocusController.xib */; };
 		18A90A871862D172005FD47B /* ASMediaFocusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A90A831862D172005FD47B /* ASMediaFocusManager.m */; };
+		18B6115F18CFF43C00C07D6A /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18B6116118CFF43C00C07D6A /* Localization.strings */; };
 		18B9A46D185ADAEB00E55911 /* msg.amr in Resources */ = {isa = PBXBuildFile; fileRef = 18B9A46C185ADAEB00E55911 /* msg.amr */; };
 		18B9A473185ADB3700E55911 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B9A470185ADB3700E55911 /* NSData+Base64.m */; };
 		18B9A474185ADB3700E55911 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B9A472185ADB3700E55911 /* NSString+Base64.m */; };
+		18CADDA118ADA69D0017824D /* GetStringForLang.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CADD9B18ADA69D0017824D /* GetStringForLang.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18CADDA218ADA69D0017824D /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CADD9D18ADA69D0017824D /* Language.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18CADDA318ADA69D0017824D /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18CADD9E18ADA69D0017824D /* readme.txt */; };
+		18CADDA418ADA69D0017824D /* SetLanguageFromNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CADDA018ADA69D0017824D /* SetLanguageFromNotifications.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18CADDAA18ADACC70017824D /* Internationalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CADDA918ADACC70017824D /* Internationalization.m */; };
+		18CADDCD18ADBABA0017824D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CADDCA18ADBABA0017824D /* MainStoryboard.storyboard */; };
 		18DA60A918891D1F000FB849 /* ANTelePhoneFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DA60A818891D1F000FB849 /* ANTelePhoneFriendViewController.m */; };
 		18E4EC161845C366001DC8D4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E4EC151845C366001DC8D4 /* AudioToolbox.framework */; };
 		18E6C62F1717E2DA00B3AF91 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6C62E1717E2DA00B3AF91 /* Default-568h@2x.png */; };
@@ -101,10 +108,8 @@
 		35D9A37C15AEA054000D314D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D9A37B15AEA054000D314D /* UIKit.framework */; };
 		35D9A37E15AEA054000D314D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D9A37D15AEA054000D314D /* Foundation.framework */; };
 		35D9A38015AEA054000D314D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D9A37F15AEA054000D314D /* CoreGraphics.framework */; };
-		35D9A38615AEA054000D314D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35D9A38415AEA054000D314D /* InfoPlist.strings */; };
 		35D9A38815AEA054000D314D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D9A38715AEA054000D314D /* main.m */; };
 		35D9A38C15AEA054000D314D /* KKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D9A38B15AEA054000D314D /* KKAppDelegate.m */; };
-		35D9A38F15AEA054000D314D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35D9A38D15AEA054000D314D /* MainStoryboard.storyboard */; };
 		35D9A39215AEA054000D314D /* KKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D9A39115AEA054000D314D /* KKViewController.m */; };
 		35D9A60315AEAEA5000D314D /* XMPPAnonymousAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D9A5A115AEAEA5000D314D /* XMPPAnonymousAuthentication.m */; };
 		35D9A60415AEAEA5000D314D /* XMPPDeprecatedDigestAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 35D9A5A415AEAEA5000D314D /* XMPPDeprecatedDigestAuthentication.m */; };
@@ -309,11 +314,24 @@
 		18A90A811862D172005FD47B /* ASMediaFocusController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ASMediaFocusController.xib; sourceTree = "<group>"; };
 		18A90A821862D172005FD47B /* ASMediaFocusManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMediaFocusManager.h; sourceTree = "<group>"; };
 		18A90A831862D172005FD47B /* ASMediaFocusManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMediaFocusManager.m; sourceTree = "<group>"; };
+		18B6116018CFF43C00C07D6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
+		18B6116218CFF44A00C07D6A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localization.strings"; sourceTree = "<group>"; };
+		18B6116318CFF45500C07D6A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localization.strings"; sourceTree = "<group>"; };
 		18B9A46C185ADAEB00E55911 /* msg.amr */ = {isa = PBXFileReference; lastKnownFileType = file; path = msg.amr; sourceTree = "<group>"; };
 		18B9A46F185ADB3700E55911 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		18B9A470185ADB3700E55911 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		18B9A471185ADB3700E55911 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		18B9A472185ADB3700E55911 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		18CADD9A18ADA69D0017824D /* GetStringForLang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetStringForLang.h; sourceTree = "<group>"; };
+		18CADD9B18ADA69D0017824D /* GetStringForLang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStringForLang.m; sourceTree = "<group>"; };
+		18CADD9C18ADA69D0017824D /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
+		18CADD9D18ADA69D0017824D /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
+		18CADD9E18ADA69D0017824D /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		18CADD9F18ADA69D0017824D /* SetLanguageFromNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetLanguageFromNotifications.h; sourceTree = "<group>"; };
+		18CADDA018ADA69D0017824D /* SetLanguageFromNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetLanguageFromNotifications.m; sourceTree = "<group>"; };
+		18CADDA818ADACC70017824D /* Internationalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Internationalization.h; sourceTree = "<group>"; };
+		18CADDA918ADACC70017824D /* Internationalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Internationalization.m; sourceTree = "<group>"; };
+		18CADDCB18ADBABA0017824D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		18DA60A718891D1F000FB849 /* ANTelePhoneFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTelePhoneFriendViewController.h; sourceTree = "<group>"; };
 		18DA60A818891D1F000FB849 /* ANTelePhoneFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTelePhoneFriendViewController.m; sourceTree = "<group>"; };
 		18E4EC151845C366001DC8D4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -327,12 +345,10 @@
 		35D9A37D15AEA054000D314D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		35D9A37F15AEA054000D314D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		35D9A38315AEA054000D314D /* XmppDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XmppDemo-Info.plist"; sourceTree = "<group>"; };
-		35D9A38515AEA054000D314D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35D9A38715AEA054000D314D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		35D9A38915AEA054000D314D /* XmppDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XmppDemo-Prefix.pch"; sourceTree = "<group>"; };
 		35D9A38A15AEA054000D314D /* KKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKAppDelegate.h; sourceTree = "<group>"; };
 		35D9A38B15AEA054000D314D /* KKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KKAppDelegate.m; sourceTree = "<group>"; };
-		35D9A38E15AEA054000D314D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		35D9A39015AEA054000D314D /* KKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKViewController.h; sourceTree = "<group>"; };
 		35D9A39115AEA054000D314D /* KKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KKViewController.m; sourceTree = "<group>"; };
 		35D9A5A015AEAEA5000D314D /* XMPPAnonymousAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPAnonymousAuthentication.h; sourceTree = "<group>"; };
@@ -832,6 +848,22 @@
 			path = Base64;
 			sourceTree = "<group>";
 		};
+		18CADD9918ADA69D0017824D /* LanguageSetting */ = {
+			isa = PBXGroup;
+			children = (
+				18CADDA818ADACC70017824D /* Internationalization.h */,
+				18CADDA918ADACC70017824D /* Internationalization.m */,
+				18CADD9A18ADA69D0017824D /* GetStringForLang.h */,
+				18CADD9B18ADA69D0017824D /* GetStringForLang.m */,
+				18CADD9C18ADA69D0017824D /* Language.h */,
+				18CADD9D18ADA69D0017824D /* Language.m */,
+				18CADD9E18ADA69D0017824D /* readme.txt */,
+				18CADD9F18ADA69D0017824D /* SetLanguageFromNotifications.h */,
+				18CADDA018ADA69D0017824D /* SetLanguageFromNotifications.m */,
+			);
+			path = LanguageSetting;
+			sourceTree = "<group>";
+		};
 		35D9A36C15AEA054000D314D = {
 			isa = PBXGroup;
 			children = (
@@ -878,6 +910,7 @@
 		35D9A38115AEA054000D314D /* XmppDemo */ = {
 			isa = PBXGroup;
 			children = (
+				18CADD9918ADA69D0017824D /* LanguageSetting */,
 				18B9A46E185ADB3700E55911 /* Base64 */,
 				35D9A50C15AEAD1F000D314D /* XMPP */,
 				18A90A7C1862D172005FD47B /* ASMediaFocusManager */,
@@ -885,7 +918,7 @@
 				35D9A38B15AEA054000D314D /* KKAppDelegate.m */,
 				186933041872A31500F1319C /* KKWelcomViewController.h */,
 				186933051872A31500F1319C /* KKWelcomViewController.m */,
-				35D9A38D15AEA054000D314D /* MainStoryboard.storyboard */,
+				18CADDCA18ADBABA0017824D /* MainStoryboard.storyboard */,
 				35D9A39015AEA054000D314D /* KKViewController.h */,
 				35D9A39115AEA054000D314D /* KKViewController.m */,
 				18DA60A718891D1F000FB849 /* ANTelePhoneFriendViewController.h */,
@@ -921,9 +954,9 @@
 				35D9A65615B3B49A000D314D /* aqua.png */,
 				35D9A65715B3B49A000D314D /* orange.png */,
 				35D9A38315AEA054000D314D /* XmppDemo-Info.plist */,
-				35D9A38415AEA054000D314D /* InfoPlist.strings */,
 				35D9A38715AEA054000D314D /* main.m */,
 				35D9A38915AEA054000D314D /* XmppDemo-Prefix.pch */,
+				18B6116118CFF43C00C07D6A /* Localization.strings */,
 			);
 			name = "Supporting Files";
 			path = XmppDemo;
@@ -1199,7 +1232,7 @@
 			attributes = {
 				CLASSPREFIX = KK;
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = "无锡恩梯梯数据有限公司";
+				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = 35D9A37115AEA054000D314D /* Build configuration list for PBXProject "XmppDemo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1207,6 +1240,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 35D9A36C15AEA054000D314D;
 			productRefGroup = 35D9A37815AEA054000D314D /* Products */;
@@ -1225,14 +1260,14 @@
 			files = (
 				18A90A781861902F005FD47B /* 麦克风@2x.png in Resources */,
 				18A90A731861902F005FD47B /* 删除录音内容@2x.png in Resources */,
-				35D9A38615AEA054000D314D /* InfoPlist.strings in Resources */,
-				35D9A38F15AEA054000D314D /* MainStoryboard.storyboard in Resources */,
 				35D9A62215AEAEA5000D314D /* README.txt in Resources */,
 				35D9A62715AEAEA5000D314D /* libidn-1.24.tar.gz in Resources */,
 				35D9A65815B3B49A000D314D /* aqua.png in Resources */,
 				35D9A65915B3B49A000D314D /* orange.png in Resources */,
+				18CADDCD18ADBABA0017824D /* MainStoryboard.storyboard in Resources */,
 				18A90A65186177D6005FD47B /* push.wav in Resources */,
 				18A90A751861902F005FD47B /* 录音分隔线@2x.png in Resources */,
+				18CADDA318ADA69D0017824D /* readme.txt in Resources */,
 				3547BC1515B3BDBA00C75DF3 /* GreenBubble2.png in Resources */,
 				18A90A771861902F005FD47B /* 点击确定效果@2x.png in Resources */,
 				18A90A761861902F005FD47B /* 录音底图@2x.png in Resources */,
@@ -1240,6 +1275,7 @@
 				18A90A741861902F005FD47B /* 录音内容底图@2x.png in Resources */,
 				3547BC1815B3BE9A00C75DF3 /* BlueBubble2.png in Resources */,
 				186933031872983500F1319C /* Default@2x.png in Resources */,
+				18B6115F18CFF43C00C07D6A /* Localization.strings in Resources */,
 				18B9A46D185ADAEB00E55911 /* msg.amr in Resources */,
 				18E6C62F1717E2DA00B3AF91 /* Default-568h@2x.png in Resources */,
 			);
@@ -1259,6 +1295,7 @@
 				35D9A60415AEAEA5000D314D /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				35D9A60515AEAEA5000D314D /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				35D9A60615AEAEA5000D314D /* XMPPDigestMD5Authentication.m in Sources */,
+				18CADDA118ADA69D0017824D /* GetStringForLang.m in Sources */,
 				35D9A60715AEAEA5000D314D /* XMPPPlainAuthentication.m in Sources */,
 				35D9A60815AEAEA5000D314D /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				35D9A60915AEAEA5000D314D /* NSData+XMPP.m in Sources */,
@@ -1270,7 +1307,9 @@
 				35D9A60F15AEAEA5000D314D /* XMPPMessage.m in Sources */,
 				35D9A61015AEAEA5000D314D /* XMPPModule.m in Sources */,
 				35D9A61115AEAEA5000D314D /* XMPPParser.m in Sources */,
+				18CADDA418ADA69D0017824D /* SetLanguageFromNotifications.m in Sources */,
 				35D9A61215AEAEA5000D314D /* XMPPPresence.m in Sources */,
+				18CADDA218ADA69D0017824D /* Language.m in Sources */,
 				35D9A61315AEAEA5000D314D /* XMPPStream.m in Sources */,
 				35D9A61415AEAEA5000D314D /* DDList.m in Sources */,
 				35D9A61515AEAEA5000D314D /* GCDMulticastDelegate.m in Sources */,
@@ -1331,6 +1370,7 @@
 				18B9A474185ADB3700E55911 /* NSString+Base64.m in Sources */,
 				1832BB811715098200D43F6F /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				1832BB821715098200D43F6F /* XMPPMessage+XEP0045.m in Sources */,
+				18CADDAA18ADACC70017824D /* Internationalization.m in Sources */,
 				1832BB831715098200D43F6F /* XMPPMUC.m in Sources */,
 				18A90A851862D172005FD47B /* ASMediaFocusController.m in Sources */,
 				1832BB841715098200D43F6F /* XMPPRoom.m in Sources */,
@@ -1371,18 +1411,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		35D9A38415AEA054000D314D /* InfoPlist.strings */ = {
+		18B6116118CFF43C00C07D6A /* Localization.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				35D9A38515AEA054000D314D /* en */,
+				18B6116018CFF43C00C07D6A /* en */,
+				18B6116218CFF44A00C07D6A /* zh-Hans */,
+				18B6116318CFF45500C07D6A /* zh-Hant */,
 			);
-			name = InfoPlist.strings;
+			name = Localization.strings;
 			sourceTree = "<group>";
 		};
-		35D9A38D15AEA054000D314D /* MainStoryboard.storyboard */ = {
+		18CADDCA18ADBABA0017824D /* MainStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				35D9A38E15AEA054000D314D /* en */,
+				18CADDCB18ADBABA0017824D /* en */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
@@ -1414,6 +1456,7 @@
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = XmppMaster;
 				PROVISIONING_PROFILE = "5B29EEF7-408D-4465-A9D1-1DBBFA25C9EF";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5B29EEF7-408D-4465-A9D1-1DBBFA25C9EF";
 				SDKROOT = iphoneos;
@@ -1439,6 +1482,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = XmppMaster;
 				PROVISIONING_PROFILE = "5B29EEF7-408D-4465-A9D1-1DBBFA25C9EF";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5B29EEF7-408D-4465-A9D1-1DBBFA25C9EF";
 				SDKROOT = iphoneos;

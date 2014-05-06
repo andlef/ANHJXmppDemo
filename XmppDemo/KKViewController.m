@@ -10,6 +10,7 @@
 #import "KKAppDelegate.h"
 #import "KKChatController.h"
 #import "ANTelePhoneFriendViewController.h"
+#import "Internationalization.h"
 
 #import <AddressBookUI/AddressBookUI.h>
 #import "Statics.h"
@@ -58,6 +59,12 @@
         self.extendedLayoutIncludesOpaqueBars = YES;
         self.modalPresentationCapturesStatusBarAppearance = NO;
     }
+    
+//     int a = 3; int b = a++; int c = ++b; int d = a + b+ c++; NSLog(@"a=%d, b=%d, c=%d, d=%d",a,b,c,d);
+//    int a = 28; int b = 0; for (int i = 0; i<2; i++) { b = a%3; b++; ++b; } NSLog(@"%d",b);
+    int b = 5; int c = 0; for (int i = 0; i < 3; i++) { while (b++) { if (b > 5) { c = b+i; break; } } } NSLog(@"%d",c);
+
+    getString4Lang = [[GetStringForLang alloc] init];
 
 }
 
@@ -72,6 +79,8 @@
     NSString *displayName = [xmppName substringToIndex:range.location];//开始截取
     NSInteger row = [onlineUsers indexOfObject:displayName];
     [tView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]].backgroundColor = [UIColor purpleColor];
+    
+    
 }
 
 -(void) changeNaviBarItemWhenLogined {
@@ -97,6 +106,22 @@
     self.loginAndLogout.title = [Statics isLogin] ? @"退出" : @"登陆";
     self.reginAndAddFriend.title = [Statics isLogin] ? @"加好友" : @"注册";
     
+    [_telePhoneBut setTitle:[getString4Lang getStrFromGetStringForLang:@"telePhoneFriend" comment:nil sender:_telePhoneBut actionKey:setTitle] forState:UIControlStateNormal];
+    [_settingLangBut setTitle:[getString4Lang getStrFromGetStringForLang:@"settingLang" comment:@"settingLang" sender:_settingLangBut actionKey:setTitle] forState:UIControlStateNormal];
+    
+    NSString *identifier = [[NSLocale currentLocale] localeIdentifier]; // 比如Loacl是en_Zh
+    NSString *displayName = [[NSLocale currentLocale] displayNameForKey:NSLocaleIdentifier value:identifier]; // displayName = “中国”
+    
+    NSLog(@"displayLANGName:%@, localizedString Test : %@",displayName,[[NSBundle mainBundle] localizedStringForKey:@"testdd" value:nil table:@"Localization"]);
+    NSLog(@"test2 : %@",NSLocalizedString(@"telePhoneFriend",nil));
+    NSLog(@"key:%@",NSLocalizedString(@"key", @""));
+    
+//    "settingLang" = "Language Setting";
+//    
+//    "telePhoneFriend" = "TeleFriend";
+//    
+//    "testdd" = "TheTest";
+//    "key" = "english value";
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -165,6 +190,11 @@
     telePhoneView.myFriend = [[NSArray alloc] initWithArray:allFriends];
     [self.navigationController pushViewController:telePhoneView animated:YES];
     
+}
+
+- (IBAction)settingLang:(id)sender {
+    Internationalization * LangSetting = [[Internationalization alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:LangSetting animated:YES];
 }
 
 - (IBAction)actResignAndAddFriend:(id)sender {

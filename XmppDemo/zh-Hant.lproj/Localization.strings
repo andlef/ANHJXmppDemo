@@ -1,0 +1,12 @@
+/* 
+  Localization.strings
+  XmppDemo
+
+  Created by paulus.an on 14-3-12.
+
+*/
+"settingLang" = "语言设置";
+
+"telePhoneFriend" = "电话";
+"testdd" = "测试";
+"key" = "中文";
